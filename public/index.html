@@ -34,7 +34,7 @@
 
                 element.addEventListener('click', () => {
                     axios
-                        .delete(`${baseUrl}/api/students/${theIndexValue}`)
+                        .delete(`/api/students/${theIndexValue}`)
                         .then(res => {
                             putTheThingInTheView(res)
                         })
