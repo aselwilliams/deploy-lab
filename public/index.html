@@ -10,5 +10,45 @@
 </head>
 <body>
     <h1>Hello assessment</h1>
+    <form>
+        <input type="text" placeholder="Enter Christmas toy">
+        <button>Submit</button>
+    </form>
+    <section></section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const addForm = document.querySelector('form');
+        const input = document.querySelector('input');
+        const container = document.querySelector('section');
+
+        function putTheThingInTheView(res) {
+            container.innerHTML = ''
+           input.value = ''
+        res.data.forEach((toy, index) => {
+                container.innerHTML += `<p name=${index}>${toy}</p>`
+            })
+
+            document.querySelectorAll('p').forEach(element => {
+                const theIndexValue = element.getAttribute('name');
+
+                element.addEventListener('click', () => {
+                    axios
+                        .delete(`${baseUrl}/api/students/${theIndexValue}`)
+                        .then(res => {
+                            putTheThingInTheView(res)
+                        })
+                })
+            })
+        }
+
+        axios
+            .get(`/api/toys`)
+            .then(res => {
+                putTheThingInTheView(res)
+            })
+
+        addForm.addEventListener('submit', submitHandler)
+    </script>
 </body>
 </html>
